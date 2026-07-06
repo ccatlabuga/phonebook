@@ -74,7 +74,8 @@ public class PhoneBookFormatter {
      */
     public void error(Throwable cause) {
         // TODO: add your code here
-        throw new UnsupportedOperationException("Implement it!");
+//        throw new UnsupportedOperationException("Implement it!");
+        throw new RuntimeException(cause);
     }
 
     /*************************

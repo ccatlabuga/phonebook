@@ -4,6 +4,8 @@ import com.phonebook.main.InMemoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -13,7 +15,7 @@ import java.util.Set;
 @Service
 public class PhoneBook {
 
-    // @Autowired
+    @Autowired
     private InMemoryRepository repository;
 
     public PhoneBook() {
@@ -49,4 +51,34 @@ public class PhoneBook {
     /**
      * TODO: please add required methods here
      */
+
+    public void addPhone(String name, String phone) {
+        this.repository.addPhone(name, phone);
+    }
+
+    public void addPhone(String name, List<String> phones) {
+        for (String phone : phones) {
+            this.addPhone(name, phone);
+        }
+    }
+
+    public void addPhone(List<String> commandArgs) {
+        this.addPhone(commandArgs.get(0), Arrays.asList(commandArgs.get(1).split(",")));
+    }
+
+    public void removePhone(String phone) {
+        this.repository.removePhone(phone);
+    }
+
+    public void removePhone(List<String> commandArgs) {
+        this.repository.removePhone(commandArgs.get(0));
+    }
+
+    public void show() {
+        System.out.println(repository.findAll());
+    }
+
+    public void show(List<String> strings) {
+        this.show();
+    }
 }
