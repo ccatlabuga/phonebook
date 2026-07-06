@@ -39,21 +39,26 @@ public class InMemoryRepositoryIml implements InMemoryRepository {
 
     @Override
     public Set<String> findAllPhonesByName(String name) {
-        throw new UnsupportedOperationException("Implement it!");
+        return this.data.getOrDefault(name, null);
     }
 
     @Override
     public String findNameByPhone(String phone) {
-        throw new UnsupportedOperationException("Implement it!");
+        return this.data.entrySet()
+                .stream()
+                .filter(entry -> entry.getValue().contains(phone))
+                .map(Map.Entry::getKey)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Phone not found"));
     }
 
     @Override
     public void addPhone(String name, String phone) {
-        throw new UnsupportedOperationException("Implement it!");
+        this.data.computeIfAbsent(name, k -> new java.util.HashSet<>()).add(phone);
     }
 
     @Override
     public void removePhone(String phone) throws IllegalArgumentException {
-        throw new UnsupportedOperationException("Implement it!");
+        this.data.get(this.findNameByPhone(phone)).remove(phone);
     }
 }
