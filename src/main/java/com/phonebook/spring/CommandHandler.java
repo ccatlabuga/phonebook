@@ -1,11 +1,9 @@
 package com.phonebook.spring;
 
+import com.phonebook.main.CliCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.function.Consumer;
 
 @Component
 public class CommandHandler {
@@ -13,17 +11,17 @@ public class CommandHandler {
     private PhoneBook phoneBook;
 
     @Bean({"ADD"})
-    public Consumer<List<String>> addPhone() {
+    public CliCommand addPhone() {
         return this.phoneBook::addPhone;
     }
 
     @Bean({"REMOVE_PHONE"})
-    public Consumer<List<String>> removePhone() {
+    public CliCommand removePhone() {
         return this.phoneBook::removePhone;
     }
 
     @Bean({"SHOW"})
-    public Consumer<List<String>> show() {
+    public CliCommand show() {
         return this.phoneBook::show;
     }
 }

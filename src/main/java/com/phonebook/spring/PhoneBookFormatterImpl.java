@@ -1,5 +1,6 @@
 package com.phonebook.spring;
 
+import com.phonebook.main.PhoneBookFormatter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -8,14 +9,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static java.lang.String.format;
-import static java.lang.String.join;
 
 /**
  * Responsible for formatting in {@code PhoneBook} application
  */
 @Component
-public class PhoneBookFormatter {
-
+public class PhoneBookFormatterImpl implements PhoneBookFormatter {
     // comes from application.properties file
     @Value("${lowerCaseNames}")
     private boolean lowerCaseNames = false;
@@ -41,15 +40,18 @@ public class PhoneBookFormatter {
         }
     }
 
+    @Override
     public void show(String data) {
         System.out.println(String.format("%-10s", data));
     }
 
+    @Override
     public void show(Set<String> data) {
         String joined = String.join(", ", data);
         this.show(joined);
     }
 
+    @Override
     public void show(Map<String, Set<String>> data) {
         data.forEach((key, values) -> {
             Set<String> processedValues = lowerCaseNames
@@ -69,6 +71,7 @@ public class PhoneBookFormatter {
      *
      * @param message
      */
+    @Override
     public void info(String message) {
         System.out.println(format("\u001B[32m%s: %s\u001B[0m", Level.INFO, message));
     }
@@ -78,6 +81,7 @@ public class PhoneBookFormatter {
      *
      * @param message
      */
+    @Override
     public void error(String message) {
         System.out.println(format("\u001B[31m%s: %s\u001B[0m", Level.ERROR, message));
     }
@@ -87,6 +91,7 @@ public class PhoneBookFormatter {
      *
      * @param cause of an error
      */
+    @Override
     public void error(Throwable cause) {
         this.error(cause.toString());
     }

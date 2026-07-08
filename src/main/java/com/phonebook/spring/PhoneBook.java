@@ -1,6 +1,7 @@
 package com.phonebook.spring;
 
 import com.phonebook.main.InMemoryRepository;
+import com.phonebook.main.PhoneBookFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -74,9 +75,6 @@ public class PhoneBook {
 
     public void removePhone(List<String> commandArgs) {
         this.removePhone(commandArgs.get(0));
-    }
-
-    public void show() {
     }
 
     public void show(List<String> commandArgs) {

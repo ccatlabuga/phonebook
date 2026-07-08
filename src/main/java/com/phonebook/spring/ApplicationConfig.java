@@ -1,5 +1,6 @@
 package com.phonebook.spring;
 
+import com.phonebook.main.CliRunner;
 import com.phonebook.main.InMemoryRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -32,7 +33,11 @@ public class ApplicationConfig {
 
     @Bean(name = "repository")
     public InMemoryRepository inMemoryRepository(Map<String, Set<String>> defaultData) {
-        return new InMemoryRepositoryIml(defaultData);
+        return new InMemoryRepositoryImpl(defaultData);
     }
 
+    @Bean(name = "runner")
+    public CliRunner runner() {
+        return new CliRunnerImpl();
+    }
 }
