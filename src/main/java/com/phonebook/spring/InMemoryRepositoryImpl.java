@@ -69,7 +69,13 @@ public class InMemoryRepositoryImpl implements InMemoryRepository {
 
     @Override
     public void removePhone(String phone) throws IllegalArgumentException {
-        this.data.get(this.findNameByPhone(phone)).remove(phone);
+        String name = this.findNameByPhone(phone);
+        this.data.get(name).remove(phone);
         this.renderer.info(String.format("Removed number: %s", phone));
+
+        if (this.findAllPhonesByName(name).isEmpty()) {
+            this.data.remove(name);
+            this.renderer.info(String.format("Removed name: %s", name));
+        }
     }
 }
