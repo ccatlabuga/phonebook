@@ -1,15 +1,13 @@
 package com.phonebook.main;
 
-import com.phonebook.enums.Command;
 import com.phonebook.spring.ApplicationConfig;
-import com.phonebook.spring.CommandHandler;
-import com.phonebook.spring.PhoneBook;
 import com.phonebook.spring.PhoneBookFormatter;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * PhoneBook entry point
@@ -19,15 +17,9 @@ public class PhoneBookMain {
         ApplicationContext context = newApplicationContext(args);
 
         Scanner sc = new Scanner(System.in);
-        sc.useDelimiter(System.getProperty("line.separator"));
+        sc.useDelimiter(System.lineSeparator());
 
-        PhoneBook phoneBook = context.getBean("phoneBook", PhoneBook.class);
         PhoneBookFormatter renderer = (PhoneBookFormatter) context.getBean("phoneBookFormatter");
-        CommandHandler commandHandler = context.getBean(CommandHandler.class);
-
-        commandHandler.addCommand(Command.ADD, phoneBook::addPhone);
-        commandHandler.addCommand(Command.REMOVE_PHONE, phoneBook::removePhone);
-        commandHandler.addCommand(Command.SHOW, phoneBook::show);
 
         renderer.info("type 'exit' to quit.");
         while (sc.hasNext()) {
@@ -37,7 +29,9 @@ public class PhoneBookMain {
                 break;
             }
             try {
-                commandHandler.executeCommand(Arrays.asList(line.split(" ")));
+//                commandHandler.executeCommand(Arrays.asList(line.split(" ")));
+                List<String> command = Arrays.asList(line.split(" "));
+                ((Consumer<List<String>>) context.getBean(command.get(0))).accept(command.subList(1, command.size()));
             } catch (Exception e) {
                 renderer.error(e);
             }
@@ -49,5 +43,4 @@ public class PhoneBookMain {
                 ? new ClassPathXmlApplicationContext("application-config.xml")
                 : new AnnotationConfigApplicationContext(ApplicationConfig.class);
     }
-
 }

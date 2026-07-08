@@ -41,12 +41,27 @@ public class PhoneBookFormatter {
         }
     }
 
-    /**
-     * @param data to print send to stdout
-     */
+    public void show(String data) {
+        System.out.println(String.format("%-10s", data));
+    }
+
+    public void show(Set<String> data) {
+        String joined = String.join(", ", data);
+        this.show(joined);
+    }
+
     public void show(Map<String, Set<String>> data) {
-        data.forEach((k, v) -> System.out.println(format("%-20.20s%s%-10s", k, this.columnsSeparator, join(", ",
-                v = lowerCaseNames ? v.stream().map(e -> e.toLowerCase()).collect(Collectors.toSet()) : v))));
+        data.forEach((key, values) -> {
+            Set<String> processedValues = lowerCaseNames
+                    ? values.stream().map(String::toLowerCase).collect(Collectors.toSet())
+                    : values;
+
+
+            String prefix = String.format("%-20.20s%s", key, this.columnsSeparator);
+            System.out.print(prefix);
+
+            this.show(processedValues);
+        });
     }
 
     /**
@@ -73,9 +88,7 @@ public class PhoneBookFormatter {
      * @param cause of an error
      */
     public void error(Throwable cause) {
-        // TODO: add your code here
-//        throw new UnsupportedOperationException("Implement it!");
-        throw new RuntimeException(cause);
+        this.error(cause.toString());
     }
 
     /*************************

@@ -14,9 +14,11 @@ import java.util.Set;
  */
 @Service
 public class PhoneBook {
-
     @Autowired
     private InMemoryRepository repository;
+
+    @Autowired
+    private PhoneBookFormatter renderer;
 
     public PhoneBook() {
         // be careful this.repository will not be initialised if injection on setter is chosen
@@ -71,14 +73,17 @@ public class PhoneBook {
     }
 
     public void removePhone(List<String> commandArgs) {
-        this.repository.removePhone(commandArgs.get(0));
+        this.removePhone(commandArgs.get(0));
     }
 
     public void show() {
-        System.out.println(repository.findAll());
     }
 
-    public void show(List<String> strings) {
-        this.show();
+    public void show(List<String> commandArgs) {
+        if (commandArgs.isEmpty()) {
+            this.renderer.show(repository.findAll());
+        } else {
+            this.renderer.show(repository.findAllPhonesByName(commandArgs.get(0)));
+        }
     }
 }

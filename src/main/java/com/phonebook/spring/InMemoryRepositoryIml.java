@@ -1,6 +1,7 @@
 package com.phonebook.spring;
 
 import com.phonebook.main.InMemoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.LinkedHashMap;
@@ -12,8 +13,10 @@ import java.util.Set;
  */
 @Repository
 public class InMemoryRepositoryIml implements InMemoryRepository {
+    @Autowired
+    PhoneBookFormatter renderer;
 
-    private Map<String, Set<String>> data;
+    private final Map<String, Set<String>> data;
 
     /**
      * no args constructor
@@ -34,31 +37,39 @@ public class InMemoryRepositoryIml implements InMemoryRepository {
 
     @Override
     public Map<String, Set<String>> findAll() {
-        return new LinkedHashMap<>(this.data);
+        Map<String, Set<String>> data = new LinkedHashMap<>(this.data);
+        this.renderer.info("Retrieved all data in phonebook");
+        return data;
     }
 
     @Override
     public Set<String> findAllPhonesByName(String name) {
-        return this.data.getOrDefault(name, null);
+        Set<String> data = this.data.getOrDefault(name, null);
+        this.renderer.info(String.format("Retrieved phone numbers: %s for name: %s", data.toString(), name));
+        return data;
     }
 
     @Override
     public String findNameByPhone(String phone) {
-        return this.data.entrySet()
+        String name = this.data.entrySet()
                 .stream()
                 .filter(entry -> entry.getValue().contains(phone))
                 .map(Map.Entry::getKey)
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Phone not found"));
+        this.renderer.info(String.format("Found name: %s for phone: %s", name, phone));
+        return name;
     }
 
     @Override
     public void addPhone(String name, String phone) {
         this.data.computeIfAbsent(name, k -> new java.util.HashSet<>()).add(phone);
+        this.renderer.info(String.format("Added phone number: %s for name: %s ", phone, name));
     }
 
     @Override
     public void removePhone(String phone) throws IllegalArgumentException {
         this.data.get(this.findNameByPhone(phone)).remove(phone);
+        this.renderer.info(String.format("Removed number: %s", phone));
     }
 }
