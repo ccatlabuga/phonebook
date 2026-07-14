@@ -1,7 +1,8 @@
-package com.phonebook.spring;
+package com.phonebook.runner.impl;
 
-import com.phonebook.main.CliCommand;
-import com.phonebook.main.CliRunner;
+import com.phonebook.command.Command;
+import com.phonebook.runner.Runner;
+import com.phonebook.formatter.impl.PhoneBookFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,16 +12,16 @@ import java.util.Map;
 import java.util.Scanner;
 
 @Component
-public class CliRunnerImpl implements CliRunner {
+public class CliRunner implements Runner {
     @Autowired
-    private Map<String, CliCommand> commands;
+    private Map<String, Command> commands;
 
     @Autowired
-    PhoneBookFormatterImpl renderer;
+    PhoneBookFormatter renderer;
 
     @Override
     public void execute(String commandName, List<String> commandArgs) {
-        CliCommand command = commands.get(commandName);
+        Command command = commands.get(commandName);
 
         if (command != null) {
             command.accept(commandArgs);

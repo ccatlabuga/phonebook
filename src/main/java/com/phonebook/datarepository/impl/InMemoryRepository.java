@@ -1,6 +1,7 @@
-package com.phonebook.spring;
+package com.phonebook.datarepository.impl;
 
-import com.phonebook.main.InMemoryRepository;
+import com.phonebook.datarepository.DataRepository;
+import com.phonebook.formatter.impl.PhoneBookFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -12,16 +13,16 @@ import java.util.Set;
  * Keeps phoneBook data in memory in ordered in accordance to addition.
  */
 @Repository
-public class InMemoryRepositoryImpl implements InMemoryRepository {
+public class InMemoryRepository implements DataRepository {
     @Autowired
-    PhoneBookFormatterImpl renderer;
+    PhoneBookFormatter renderer;
 
     private final Map<String, Set<String>> data;
 
     /**
      * no args constructor
      */
-    public InMemoryRepositoryImpl() {
+    public InMemoryRepository() {
         // LinkedHashMap is chosen because usually iteration order matters
         this(new LinkedHashMap<>());
     }
@@ -31,7 +32,7 @@ public class InMemoryRepositoryImpl implements InMemoryRepository {
      *
      * @param data
      */
-    public InMemoryRepositoryImpl(Map<String, Set<String>> data) {
+    public InMemoryRepository(Map<String, Set<String>> data) {
         this.data = new LinkedHashMap<>(data);
     }
 

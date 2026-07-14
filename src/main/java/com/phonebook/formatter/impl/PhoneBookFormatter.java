@@ -1,6 +1,6 @@
-package com.phonebook.spring;
+package com.phonebook.formatter.impl;
 
-import com.phonebook.main.PhoneBookFormatter;
+import com.phonebook.formatter.Formatter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ import static java.lang.String.format;
  * Responsible for formatting in {@code PhoneBook} application
  */
 @Component
-public class PhoneBookFormatterImpl implements PhoneBookFormatter {
+public class PhoneBookFormatter implements Formatter {
     // comes from application.properties file
     @Value("${lowerCaseNames}")
     private boolean lowerCaseNames = false;

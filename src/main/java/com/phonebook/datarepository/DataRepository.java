@@ -1,4 +1,4 @@
-package com.phonebook.main;
+package com.phonebook.datarepository;
 
 import java.util.Map;
 import java.util.Set;
@@ -6,7 +6,7 @@ import java.util.Set;
 /**
  * Repository interface
  */
-public interface InMemoryRepository {
+public interface DataRepository {
     /**
      * @return all repository records "{name: [phone1, phone2]}"
      */

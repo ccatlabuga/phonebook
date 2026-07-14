@@ -1,7 +1,7 @@
 package com.phonebook.spring;
 
-import com.phonebook.main.InMemoryRepository;
-import com.phonebook.main.PhoneBookFormatter;
+import com.phonebook.datarepository.DataRepository;
+import com.phonebook.formatter.Formatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +16,10 @@ import java.util.Set;
 @Service
 public class PhoneBook {
     @Autowired
-    private InMemoryRepository repository;
+    private DataRepository repository;
 
     @Autowired
-    private PhoneBookFormatter renderer;
+    private Formatter renderer;
 
     public PhoneBook() {
         // be careful this.repository will not be initialised if injection on setter is chosen
@@ -31,7 +31,7 @@ public class PhoneBook {
      * @param repository
      */
     // @Autowired
-    public PhoneBook(InMemoryRepository repository) {
+    public PhoneBook(DataRepository repository) {
         this.repository = repository;
     }
 
@@ -40,7 +40,7 @@ public class PhoneBook {
      *
      * @param repository
      */
-    public void setRepository(InMemoryRepository repository) {
+    public void setRepository(DataRepository repository) {
         this.repository = repository;
     }
 

@@ -1,6 +1,7 @@
-package com.phonebook.spring;
+package com.phonebook.handler;
 
-import com.phonebook.main.CliCommand;
+import com.phonebook.command.Command;
+import com.phonebook.spring.PhoneBook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -11,17 +12,17 @@ public class CommandHandler {
     private PhoneBook phoneBook;
 
     @Bean({"ADD"})
-    public CliCommand addPhone() {
+    public Command addPhone() {
         return this.phoneBook::addPhone;
     }
 
     @Bean({"REMOVE_PHONE"})
-    public CliCommand removePhone() {
+    public Command removePhone() {
         return this.phoneBook::removePhone;
     }
 
     @Bean({"SHOW"})
-    public CliCommand show() {
+    public Command show() {
         return this.phoneBook::show;
     }
 }

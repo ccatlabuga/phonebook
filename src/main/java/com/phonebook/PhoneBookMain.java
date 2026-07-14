@@ -1,11 +1,10 @@
-package com.phonebook.main;
+package com.phonebook;
 
+import com.phonebook.runner.Runner;
 import com.phonebook.spring.ApplicationConfig;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import java.util.*;
 
 /**
  * PhoneBook entry point
@@ -16,7 +15,7 @@ public class PhoneBookMain {
     public static void main(String[] args) {
         context = newApplicationContext(args);
 
-        CliRunner runner = (CliRunner) context.getBean("runner");
+        Runner runner = (Runner) context.getBean("runner");
         runner.run();
     }
 

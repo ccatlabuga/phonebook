@@ -1,9 +1,9 @@
-package com.phonebook.main;
+package com.phonebook.formatter;
 
 import java.util.Map;
 import java.util.Set;
 
-public interface PhoneBookFormatter {
+public interface Formatter {
     void show(String data);
     void show(Set<String> data);
     void show(Map<String, Set<String>> data);
