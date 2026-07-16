@@ -1,7 +1,7 @@
 package com.phonebook.tests;
 
 import com.phonebook.spring.ApplicationConfig;
-import com.phonebook.spring.PhoneBook;
+import com.phonebook.component.service.PhoneBook;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

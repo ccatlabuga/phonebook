@@ -1,4 +1,4 @@
-package com.phonebook.runner;
+package com.phonebook.component.runner;
 
 import java.util.List;
 

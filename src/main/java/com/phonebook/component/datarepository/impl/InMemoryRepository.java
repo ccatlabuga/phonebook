@@ -1,7 +1,7 @@
-package com.phonebook.datarepository.impl;
+package com.phonebook.component.datarepository.impl;
 
-import com.phonebook.datarepository.DataRepository;
-import com.phonebook.formatter.impl.PhoneBookFormatter;
+import com.phonebook.component.datarepository.DataRepository;
+import com.phonebook.component.formatter.impl.PhoneBookFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

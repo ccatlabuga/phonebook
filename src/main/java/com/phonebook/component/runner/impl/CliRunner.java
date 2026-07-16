@@ -1,8 +1,8 @@
-package com.phonebook.runner.impl;
+package com.phonebook.component.runner.impl;
 
-import com.phonebook.command.Command;
-import com.phonebook.runner.Runner;
-import com.phonebook.formatter.impl.PhoneBookFormatter;
+import com.phonebook.component.command.Command;
+import com.phonebook.component.runner.Runner;
+import com.phonebook.component.formatter.impl.PhoneBookFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package com.phonebook.command;
+package com.phonebook.component.command;
 
 import java.util.List;
 import java.util.function.Consumer;

@@ -1,7 +1,7 @@
-package com.phonebook.handler;
+package com.phonebook.component.handler;
 
-import com.phonebook.command.Command;
-import com.phonebook.spring.PhoneBook;
+import com.phonebook.component.command.Command;
+import com.phonebook.component.service.PhoneBook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;

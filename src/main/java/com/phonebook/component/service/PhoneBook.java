@@ -1,7 +1,7 @@
-package com.phonebook.spring;
+package com.phonebook.component.service;
 
-import com.phonebook.datarepository.DataRepository;
-import com.phonebook.formatter.Formatter;
+import com.phonebook.component.datarepository.DataRepository;
+import com.phonebook.component.formatter.Formatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

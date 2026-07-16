@@ -1,16 +1,16 @@
 package com.phonebook.spring;
 
-import com.phonebook.datarepository.impl.InMemoryRepository;
-import com.phonebook.runner.Runner;
-import com.phonebook.datarepository.DataRepository;
-import com.phonebook.runner.impl.CliRunner;
+import com.phonebook.component.datarepository.impl.InMemoryRepository;
+import com.phonebook.component.runner.Runner;
+import com.phonebook.component.datarepository.DataRepository;
+import com.phonebook.component.runner.impl.CliRunner;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 import java.util.*;
 
 @Configuration
-@ComponentScan(value = {"com.phonebook"})
+@ComponentScan(value = {"com.phonebook.component"})
 @PropertySource("classpath:application.properties")
 public class ApplicationConfig {
 
@@ -33,10 +33,5 @@ public class ApplicationConfig {
     @Bean(name = "repository")
     public DataRepository inMemoryRepository(Map<String, Set<String>> defaultData) {
         return new InMemoryRepository(defaultData);
-    }
-
-    @Bean(name = "runner")
-    public Runner runner() {
-        return new CliRunner();
     }
 }
