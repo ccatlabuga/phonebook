@@ -1,7 +1,6 @@
-package com.phonebook.component.entrypoint;
+package com.phonebook.component.common.entrypoint;
 
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
 
 public interface Entrypoint {
     void run(ConfigurableApplicationContext context);

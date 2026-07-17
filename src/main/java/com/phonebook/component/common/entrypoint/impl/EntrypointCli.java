@@ -1,7 +1,7 @@
-package com.phonebook.component.entrypoint.impl;
+package com.phonebook.component.common.entrypoint.impl;
 
-import com.phonebook.component.entrypoint.Entrypoint;
-import com.phonebook.component.runner.Runner;
+import com.phonebook.component.common.entrypoint.Entrypoint;
+import com.phonebook.component.cli.runner.Runner;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;

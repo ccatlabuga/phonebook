@@ -1,4 +1,4 @@
-package com.phonebook.component.datarepository;
+package com.phonebook.component.common.datarepository;
 
 import java.util.Map;
 import java.util.Set;

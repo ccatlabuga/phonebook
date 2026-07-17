@@ -1,19 +1,16 @@
 package com.phonebook.spring;
 
-import com.phonebook.component.datarepository.impl.InMemoryRepository;
-import com.phonebook.component.runner.Runner;
-import com.phonebook.component.datarepository.DataRepository;
-import com.phonebook.component.runner.impl.CliRunner;
+import com.phonebook.component.common.datarepository.impl.InMemoryRepository;
+import com.phonebook.component.common.datarepository.DataRepository;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 import java.util.*;
 
 @Configuration
-@ComponentScan(value = {"com.phonebook.component"})
+@Import({CliConfig.class, WebmvcConfig.class})
 @PropertySource("classpath:application.properties")
 public class ApplicationConfig {
-
     /**
      * Property placeholder configurer is needed to interpolate property values
      */

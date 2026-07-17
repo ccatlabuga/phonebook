@@ -1,6 +1,6 @@
-package com.phonebook.component.formatter.impl;
+package com.phonebook.component.common.formatter.impl;
 
-import com.phonebook.component.formatter.Formatter;
+import com.phonebook.component.common.formatter.Formatter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 

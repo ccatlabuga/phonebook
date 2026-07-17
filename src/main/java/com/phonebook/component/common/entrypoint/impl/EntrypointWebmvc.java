@@ -1,6 +1,6 @@
-package com.phonebook.component.entrypoint.impl;
+package com.phonebook.component.common.entrypoint.impl;
 
-import com.phonebook.component.entrypoint.Entrypoint;
+import com.phonebook.component.common.entrypoint.Entrypoint;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;

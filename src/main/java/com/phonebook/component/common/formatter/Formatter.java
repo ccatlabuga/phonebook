@@ -1,4 +1,4 @@
-package com.phonebook.component.formatter;
+package com.phonebook.component.common.formatter;
 
 import java.util.Map;
 import java.util.Set;

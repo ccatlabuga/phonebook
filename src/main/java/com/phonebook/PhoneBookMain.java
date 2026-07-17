@@ -1,6 +1,6 @@
 package com.phonebook;
 
-import com.phonebook.component.entrypoint.Entrypoint;
+import com.phonebook.component.common.entrypoint.Entrypoint;
 import com.phonebook.spring.ApplicationConfig;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -11,6 +11,12 @@ public class PhoneBookMain {
 
     static void main(String[] args) {
         context = newApplicationContext(args);
+//        context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+
+        for (String bean : context.getBeanDefinitionNames()) {
+            System.out.println(bean);
+        }
+
         Entrypoint entrypoint = context.getBean(Entrypoint.class);
 
         entrypoint.run(context);
