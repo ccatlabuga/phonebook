@@ -10,7 +10,10 @@
        http://www.springframework.org/schema/util
        http://www.springframework.org/schema/util/spring-util.xsd">
 
-    <context:component-scan base-package="com.phonebook.component"/>
+    <context:annotation-config/>
+
+    <bean class="com.phonebook.spring.CliConfig"/>
+    <bean class="com.phonebook.spring.WebmvcConfig"/>
 
     <!--  this allows you to resolve properties placeholders and use value tag in beans declarations  -->
     <context:property-placeholder location="classpath:application.properties"/>
