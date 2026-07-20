@@ -1,7 +1,7 @@
 package com.phonebook.component.common.datarepository.impl;
 
 import com.phonebook.component.common.datarepository.DataRepository;
-import com.phonebook.component.common.formatter.impl.PhoneBookFormatter;
+import com.phonebook.component.common.formatter.Formatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +15,7 @@ import java.util.Set;
 @Repository
 public class InMemoryRepository implements DataRepository {
     @Autowired
-    PhoneBookFormatter renderer;
+    Formatter renderer;
 
     private final Map<String, Set<String>> data;
 

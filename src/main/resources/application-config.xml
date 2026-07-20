@@ -42,7 +42,7 @@
          <!--<property name="repository" ref="inMemoryRepository"/>-->
     </bean>
     <!-- properties injection -->
-    <bean name="phoneBookFormatter" class="com.phonebook.component.common.formatter.impl.PhoneBookFormatter">
+    <bean name="phoneBookFormatter" class="com.phonebook.component.common.formatter.impl.PhoneBookFormatterCli">
         <property name="lowerCaseNames" value="${lowerCaseNames}"/>
         <property name="columnsSeparator" value="${columnsSeparator:\t}"/>
     </bean>

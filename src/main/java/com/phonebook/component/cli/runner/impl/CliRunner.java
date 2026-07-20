@@ -2,7 +2,7 @@ package com.phonebook.component.cli.runner.impl;
 
 import com.phonebook.component.cli.command.Command;
 import com.phonebook.component.cli.runner.Runner;
-import com.phonebook.component.common.formatter.impl.PhoneBookFormatter;
+import com.phonebook.component.common.formatter.Formatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +17,7 @@ public class CliRunner implements Runner {
     private Map<String, Command> commands;
 
     @Autowired
-    PhoneBookFormatter renderer;
+    Formatter renderer;
 
     @Override
     public void execute(String commandName, List<String> commandArgs) {
