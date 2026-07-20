@@ -11,15 +11,6 @@ public class PhoneBookMain {
 
     static void main(String[] args) {
         context = newApplicationContext(args);
-//        context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
-
-//        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-//        context.register(ApplicationConfig.class);
-//        context.refresh();
-
-        for (String bean : context.getBeanDefinitionNames()) {
-            System.out.println(bean);
-        }
 
         Entrypoint entrypoint = context.getBean(Entrypoint.class);
 
