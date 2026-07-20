@@ -9,7 +9,10 @@ import org.springframework.stereotype.Component;
 
 @Profile("webmvc")
 @Component
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {
+        "com.phonebook.component.webmvc",
+        "com.phonebook.component.common"
+})
 public class EntrypointWebmvc implements Entrypoint {
     @Override
     public void run(ConfigurableApplicationContext context) {

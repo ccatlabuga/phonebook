@@ -5,9 +5,7 @@ import com.phonebook.component.common.formatter.Formatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Keeps phoneBook data in memory in ordered in accordance to addition.
@@ -46,7 +44,11 @@ public class InMemoryRepository implements DataRepository {
     @Override
     public Set<String> findAllPhonesByName(String name) {
         Set<String> data = this.data.getOrDefault(name, null);
-        this.renderer.info(String.format("Retrieved phone numbers: %s for name: %s", data.toString(), name));
+        if (Objects.isNull(data)) {
+            this.renderer.info(String.format("Name: %s has not been found", name));
+        } else {
+            this.renderer.info(String.format("Retrieved phone numbers: %s for name: %s", data, name));
+        }
         return data;
     }
 
@@ -63,20 +65,49 @@ public class InMemoryRepository implements DataRepository {
     }
 
     @Override
+    public List<String> findNamesByPhone(String phone) {
+        List<String> names = this.data.entrySet()
+                .stream()
+                .filter(entry -> entry.getValue().contains(phone))
+                .map(Map.Entry::getKey)
+                .toList();
+        if (names.isEmpty()) {
+            this.renderer.info(String.format("No names found with phone: %s", phone));
+        } else {
+            this.renderer.info(String.format("Found names: %s for phone: %s", names, phone));
+        }
+        return names;
+    }
+
+    @Override
     public void addPhone(String name, String phone) {
         this.data.computeIfAbsent(name, k -> new java.util.HashSet<>()).add(phone);
         this.renderer.info(String.format("Added phone number: %s for name: %s ", phone, name));
     }
 
     @Override
-    public void removePhone(String phone) throws IllegalArgumentException {
-        String name = this.findNameByPhone(phone);
-        this.data.get(name).remove(phone);
-        this.renderer.info(String.format("Removed number: %s", phone));
+    public void addPhones(String name, List<String> phones) {
+        for (String phone : phones) {
+            this.addPhone(name, phone);
+        }
+    }
 
-        if (this.findAllPhonesByName(name).isEmpty()) {
-            this.data.remove(name);
-            this.renderer.info(String.format("Removed name: %s", name));
+    @Override
+    public void removePhone(String phone) throws IllegalArgumentException {
+        List<String> names = this.findNamesByPhone(phone);
+
+        if (names.isEmpty()) {
+            throw new IllegalArgumentException("No names found for " + phone);
+        }
+
+        for (String name : names) {
+            this.data.get(name).remove(phone);
+            this.renderer.info(String.format("Removed number: %s", phone));
+
+            if (this.findAllPhonesByName(name).isEmpty()) {
+                this.data.remove(name);
+                this.renderer.info(String.format("Removed name: %s", name));
+            }
         }
     }
 }

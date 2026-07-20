@@ -11,14 +11,6 @@ import java.util.*;
 @Import({CliConfig.class, WebmvcConfig.class})
 @PropertySource("classpath:application.properties")
 public class ApplicationConfig {
-    /**
-     * Property placeholder configurer is needed to interpolate property values
-     */
-    @Bean
-    public static PropertySourcesPlaceholderConfigurer propertyConfigurer() {
-        return new PropertySourcesPlaceholderConfigurer();
-    }
-
     @Bean
     public Map<String, Set<String>> defaultData() {
         Map<String, Set<String>> data = new LinkedHashMap<>();

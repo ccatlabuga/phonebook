@@ -1,8 +1,7 @@
 package com.phonebook.spring;
 
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.*;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 @Configuration
 @Profile("cli")
@@ -10,4 +9,12 @@ import org.springframework.context.annotation.Profile;
         "com.phonebook.component.cli",
         "com.phonebook.component.common"
 })
-public class CliConfig {}
+public class CliConfig {
+    /**
+     * Property placeholder configurer is needed to interpolate property values
+     */
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertyConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
+}

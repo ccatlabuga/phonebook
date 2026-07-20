@@ -10,4 +10,4 @@ import org.springframework.context.annotation.Profile;
         "com.phonebook.component.webmvc",
         "com.phonebook.component.common"
 })
-public class WebmvcConfig { }
+public class WebmvcConfig {}

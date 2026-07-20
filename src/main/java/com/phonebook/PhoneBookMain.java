@@ -13,6 +13,10 @@ public class PhoneBookMain {
         context = newApplicationContext(args);
 //        context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
 
+//        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+//        context.register(ApplicationConfig.class);
+//        context.refresh();
+
         for (String bean : context.getBeanDefinitionNames()) {
             System.out.println(bean);
         }

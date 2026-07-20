@@ -60,9 +60,7 @@ public class PhoneBook {
     }
 
     public void addPhone(String name, List<String> phones) {
-        for (String phone : phones) {
-            this.addPhone(name, phone);
-        }
+        this.repository.addPhones(name, phones);
     }
 
     public void addPhone(List<String> commandArgs) {

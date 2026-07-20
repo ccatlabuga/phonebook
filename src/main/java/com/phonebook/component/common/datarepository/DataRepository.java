@@ -1,5 +1,6 @@
 package com.phonebook.component.common.datarepository;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -24,6 +25,8 @@ public interface DataRepository {
      */
     String findNameByPhone(String phone);
 
+    List<String> findNamesByPhone(String phone);
+
     /**
      * add phone number for a name or create new record
      *
@@ -31,6 +34,8 @@ public interface DataRepository {
      * @param phone
      */
     void addPhone(String name, String phone);
+
+    void addPhones(String name, List<String> phones);
 
     /**
      * removes a phone from set. If set becomes empty after deletion remove record "{name:[phone]}" completely
