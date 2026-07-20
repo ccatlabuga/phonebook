@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -38,12 +40,17 @@ public class PhoneBookController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Set<String>> addRecord(@RequestBody Map.Entry<String, List<String>> body) {
+    public ResponseEntity<URI> addRecord(@RequestBody Map.Entry<String, List<String>> body) {
         if (!Objects.isNull(this.repository.findAllPhonesByName(body.getKey()))) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         } else {
             this.repository.addPhones(body.getKey(), body.getValue());
-            return new ResponseEntity<>(this.repository.findAllPhonesByName(body.getKey()), HttpStatus.CREATED);
+            URI location = ServletUriComponentsBuilder
+                    .fromCurrentRequest()
+                    .path("/{name}")
+                    .buildAndExpand(body.getKey())
+                    .toUri();
+            return ResponseEntity.created(location).build();
         }
     }
 
