@@ -14,10 +14,8 @@ import java.util.*;
 @Service
 public class PhoneBook {
     private final DataRepository repository;
-    private final Formatter renderer;
 
-    public PhoneBook(Formatter renderer, DataRepository repository) {
-        this.renderer = renderer;
+    public PhoneBook(DataRepository repository) {
         this.repository = repository;
     }
 
@@ -33,15 +31,24 @@ public class PhoneBook {
      */
 
     public void addPhone(String name, String phone) {
+        if (Objects.isNull(this.repository.findAllPhonesByName(name))) {
+            throw new UserNotFoundException("User with name '%s' has not been found".formatted(name));
+        }
         this.repository.addPhone(name, phone);
     }
 
     public void addPhone(String name, List<String> phones) {
+        if (Objects.isNull(this.repository.findAllPhonesByName(name))) {
+            throw new UserNotFoundException("User with name '%s' has not been found".formatted(name));
+        }
         this.repository.addPhones(name, phones);
     }
 
     public void addPhone(List<String> commandArgs) {
-        this.addPhone(commandArgs.get(0), Arrays.asList(commandArgs.get(1).split(",")));
+        if (Objects.isNull(this.repository.findAllPhonesByName(commandArgs.getFirst()))) {
+            throw new UserNotFoundException("User with name '%s' has not been found".formatted(commandArgs.getFirst()));
+        }
+        this.repository.addPhones(commandArgs.getFirst(), Arrays.asList(commandArgs.get(1).split(",")));
     }
 
     public void removePhone(String phone) {
@@ -53,14 +60,10 @@ public class PhoneBook {
     }
 
     public void removePhone(List<String> commandArgs) {
-        this.removePhone(commandArgs.get(0));
-    }
-
-    public void show(List<String> commandArgs) {
-        if (commandArgs.isEmpty()) {
-            this.renderer.show(repository.findAll());
-        } else {
-            this.renderer.show(repository.findAllPhonesByName(commandArgs.get(0)));
+        try {
+            this.repository.removePhone(commandArgs.getFirst());
+        } catch (IllegalArgumentException exception) {
+            throw new UserNotFoundException("User with phone '%s' has not been found".formatted(commandArgs.getFirst()));
         }
     }
 
@@ -82,10 +85,11 @@ public class PhoneBook {
     }
 
     public void addPhones(String name, List<String> phones) {
-        if (Objects.isNull(this.repository.findAllPhonesByName(name))) {
-            throw new UserNotFoundException("User with name '%s' has not been found".formatted(name));
-        }
-
         this.repository.addPhones(name, phones);
+    }
+
+    public void addNameAndPhone(List<String> commandArgs) {
+        this.addName(commandArgs.getFirst());
+        this.addPhone(commandArgs);
     }
 }

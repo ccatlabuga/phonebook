@@ -1,5 +1,6 @@
 package com.phonebook.env.cli.handler;
 
+import com.phonebook.core.formatter.Formatter;
 import com.phonebook.env.cli.command.Command;
 import com.phonebook.core.service.PhoneBook;
 import org.springframework.context.annotation.Bean;
@@ -8,14 +9,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class CommandHandler {
     private final PhoneBook phoneBook;
+    private final Formatter renderer;
 
-    public CommandHandler(PhoneBook phoneBook) {
+    public CommandHandler(PhoneBook phoneBook, Formatter renderer) {
         this.phoneBook = phoneBook;
+        this.renderer = renderer;
     }
 
     @Bean({"ADD"})
     public Command addPhone() {
-        return this.phoneBook::addPhone;
+        return this.phoneBook::addNameAndPhone;
     }
 
     @Bean({"REMOVE_PHONE"})
@@ -25,6 +28,12 @@ public class CommandHandler {
 
     @Bean({"SHOW"})
     public Command show() {
-        return this.phoneBook::show;
+        return (commandArgs) -> {
+            if (commandArgs.isEmpty()) {
+                this.renderer.show(this.phoneBook.findAll());
+            } else {
+                this.renderer.show(this.phoneBook.findAllPhonesByName(commandArgs.getFirst()));
+            }
+        };
     }
 }
