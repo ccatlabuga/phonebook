@@ -1,12 +1,13 @@
-package com.phonebook.main;
+package com.phonebook.core.datarepository;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 /**
  * Repository interface
  */
-public interface InMemoryRepository {
+public interface DataRepository {
     /**
      * @return all repository records "{name: [phone1, phone2]}"
      */
@@ -24,6 +25,8 @@ public interface InMemoryRepository {
      */
     String findNameByPhone(String phone);
 
+    List<String> findNamesByPhone(String phone);
+
     /**
      * add phone number for a name or create new record
      *
@@ -31,6 +34,10 @@ public interface InMemoryRepository {
      * @param phone
      */
     void addPhone(String name, String phone);
+
+    void addPhones(String name, List<String> phones);
+
+    void addName(String name);
 
     /**
      * removes a phone from set. If set becomes empty after deletion remove record "{name:[phone]}" completely

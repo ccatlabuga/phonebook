@@ -1,0 +1,25 @@
+package com.phonebook;
+
+import com.phonebook.core.entrypoint.Entrypoint;
+import com.phonebook.config.ApplicationConfig;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class PhoneBookMain {
+    static ConfigurableApplicationContext context;
+
+    static void main(String[] args) {
+        context = newApplicationContext(args);
+
+        Entrypoint entrypoint = context.getBean(Entrypoint.class);
+
+        entrypoint.run(context);
+    }
+
+    private static ConfigurableApplicationContext newApplicationContext(String... args) {
+        return args.length > 0 && args[0].equalsIgnoreCase("classPath")
+                ? new ClassPathXmlApplicationContext("application-config.xml")
+                : new AnnotationConfigApplicationContext(ApplicationConfig.class);
+    }
+}
