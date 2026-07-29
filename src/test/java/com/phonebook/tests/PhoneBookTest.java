@@ -1,6 +1,7 @@
 package com.phonebook.tests;
 
 import com.phonebook.config.ApplicationConfig;
+import com.phonebook.core.exception.UserConflictException;
 import com.phonebook.core.exception.UserNotFoundException;
 import com.phonebook.core.service.PhoneBook;
 
@@ -107,5 +108,23 @@ public class PhoneBookTest {
     public void removeNonexistentPhoneAsArgsThrowsTest() {
         List<String> ARGS = List.of("phone_not_exists");
         Assertions.assertThrows(UserNotFoundException.class, () -> this.phoneBook.removePhone(ARGS));
+    }
+
+    @Test
+    public void addNameTest() {
+        String NAME = "new_name";
+
+        this.phoneBook.addName(NAME);
+        Assertions.assertTrue(this.phoneBook.findAll().containsKey(NAME));
+    }
+
+    @Test
+    public void addNameThrowsTest() {
+        String NAME = "existing_name";
+
+        this.phoneBook.addName(NAME);
+        Assertions.assertTrue(this.phoneBook.findAll().containsKey(NAME));
+
+        Assertions.assertThrows(UserConflictException.class, () -> this.phoneBook.addName(NAME));
     }
 }
