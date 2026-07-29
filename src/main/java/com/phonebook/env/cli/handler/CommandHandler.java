@@ -1,7 +1,7 @@
 package com.phonebook.env.cli.handler;
 
 import com.phonebook.env.cli.command.Command;
-import com.phonebook.env.cli.service.PhoneBook;
+import com.phonebook.core.service.PhoneBook;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 

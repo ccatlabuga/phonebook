@@ -38,7 +38,7 @@
         <constructor-arg ref="defaultData"/>
     </bean>
     <!-- autowiring byType -->
-    <bean name="phoneBook" class="com.phonebook.env.cli.service.PhoneBook" autowire="byType">
+    <bean name="phoneBook" class="com.phonebook.core.service.PhoneBook" autowire="byType">
          <!--<property name="repository" ref="inMemoryRepository"/>-->
     </bean>
     <!-- properties injection -->

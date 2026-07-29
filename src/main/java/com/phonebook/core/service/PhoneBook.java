@@ -1,8 +1,7 @@
-package com.phonebook.env.cli.service;
+package com.phonebook.core.service;
 
 import com.phonebook.core.datarepository.DataRepository;
 import com.phonebook.core.formatter.Formatter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -60,5 +59,13 @@ public class PhoneBook {
         } else {
             this.renderer.show(repository.findAllPhonesByName(commandArgs.get(0)));
         }
+    }
+
+    public Set<String> findAllPhonesByName(String name) {
+        return this.repository.findAllPhonesByName(name);
+    }
+
+    public void addPhones(String name, List<String> phones) {
+        this.repository.addPhones(name, phones);
     }
 }
