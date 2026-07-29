@@ -29,7 +29,13 @@ public class PhoneBookController {
 
     @GetMapping("/{name}")
     public ResponseEntity<Set<String>> getByName(@PathVariable String name) {
-        return ResponseEntity.ok(this.phoneBook.findAllPhonesByName(name));
+        Set<String> results = this.phoneBook.findAllPhonesByName(name);
+
+        if (Objects.isNull(results)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return ResponseEntity.ok(results);
+        }
     }
 
     @PutMapping("/{name}")

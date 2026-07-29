@@ -15,7 +15,6 @@ import static java.lang.String.format;
  * Responsible for formatting in {@code PhoneBook} application
  */
 @Component
-@Profile("cli")
 public class PhoneBookFormatterCli implements Formatter {
     // comes from application.properties file
     @Value("${lowerCaseNames}")

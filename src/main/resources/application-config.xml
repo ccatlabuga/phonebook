@@ -34,16 +34,7 @@
 
     <!--  this is beans declaration  -->
     <!-- constructor level injection -->
-    <bean name="inMemoryRepository" class="com.phonebook.core.datarepository.impl.InMemoryRepository">
+    <bean name="repository" class="com.phonebook.core.datarepository.impl.InMemoryRepository">
         <constructor-arg ref="defaultData"/>
-    </bean>
-    <!-- autowiring byType -->
-    <bean name="phoneBook" class="com.phonebook.core.service.PhoneBook" autowire="byType">
-         <!--<property name="repository" ref="inMemoryRepository"/>-->
-    </bean>
-    <!-- properties injection -->
-    <bean name="phoneBookFormatter" class="com.phonebook.env.cli.formatter.PhoneBookFormatterCli">
-        <property name="lowerCaseNames" value="${lowerCaseNames}"/>
-        <property name="columnsSeparator" value="${columnsSeparator:\t}"/>
     </bean>
 </beans>
