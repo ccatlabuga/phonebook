@@ -1,0 +1,64 @@
+package com.phonebook.env.cli.service;
+
+import com.phonebook.core.datarepository.DataRepository;
+import com.phonebook.core.formatter.Formatter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+/**
+ * PhoneBook service implementation
+ */
+@Service
+public class PhoneBook {
+    private final DataRepository repository;
+    private final Formatter renderer;
+
+    public PhoneBook(Formatter renderer, DataRepository repository) {
+        this.renderer = renderer;
+        this.repository = repository;
+    }
+
+    /**
+     * @return all pairs of type {name: [phone1, phone2]}
+     */
+    public Map<String, Set<String>> findAll() {
+        return repository.findAll();
+    }
+
+    /**
+     * TODO: please add required methods here
+     */
+
+    public void addPhone(String name, String phone) {
+        this.repository.addPhone(name, phone);
+    }
+
+    public void addPhone(String name, List<String> phones) {
+        this.repository.addPhones(name, phones);
+    }
+
+    public void addPhone(List<String> commandArgs) {
+        this.addPhone(commandArgs.get(0), Arrays.asList(commandArgs.get(1).split(",")));
+    }
+
+    public void removePhone(String phone) {
+        this.repository.removePhone(phone);
+    }
+
+    public void removePhone(List<String> commandArgs) {
+        this.removePhone(commandArgs.get(0));
+    }
+
+    public void show(List<String> commandArgs) {
+        if (commandArgs.isEmpty()) {
+            this.renderer.show(repository.findAll());
+        } else {
+            this.renderer.show(repository.findAllPhonesByName(commandArgs.get(0)));
+        }
+    }
+}

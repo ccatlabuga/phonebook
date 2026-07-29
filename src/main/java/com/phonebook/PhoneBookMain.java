@@ -1,7 +1,7 @@
 package com.phonebook;
 
-import com.phonebook.component.common.entrypoint.Entrypoint;
-import com.phonebook.spring.ApplicationConfig;
+import com.phonebook.core.entrypoint.Entrypoint;
+import com.phonebook.config.ApplicationConfig;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

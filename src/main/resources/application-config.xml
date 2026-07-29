@@ -12,8 +12,8 @@
 
     <context:annotation-config/>
 
-    <bean class="com.phonebook.spring.CliConfig"/>
-    <bean class="com.phonebook.spring.WebmvcConfig"/>
+    <bean class="com.phonebook.config.CliConfig"/>
+    <bean class="com.phonebook.config.WebmvcConfig"/>
 
     <!--  this allows you to resolve properties placeholders and use value tag in beans declarations  -->
     <context:property-placeholder location="classpath:application.properties"/>
@@ -34,15 +34,15 @@
 
     <!--  this is beans declaration  -->
     <!-- constructor level injection -->
-    <bean name="inMemoryRepository" class="com.phonebook.component.common.datarepository.impl.InMemoryRepository">
+    <bean name="inMemoryRepository" class="com.phonebook.core.datarepository.impl.InMemoryRepository">
         <constructor-arg ref="defaultData"/>
     </bean>
     <!-- autowiring byType -->
-    <bean name="phoneBook" class="com.phonebook.component.common.service.PhoneBook" autowire="byType">
+    <bean name="phoneBook" class="com.phonebook.env.cli.service.PhoneBook" autowire="byType">
          <!--<property name="repository" ref="inMemoryRepository"/>-->
     </bean>
     <!-- properties injection -->
-    <bean name="phoneBookFormatter" class="com.phonebook.component.common.formatter.impl.PhoneBookFormatterCli">
+    <bean name="phoneBookFormatter" class="com.phonebook.env.cli.formatter.PhoneBookFormatterCli">
         <property name="lowerCaseNames" value="${lowerCaseNames}"/>
         <property name="columnsSeparator" value="${columnsSeparator:\t}"/>
     </bean>
