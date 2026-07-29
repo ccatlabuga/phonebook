@@ -34,3 +34,25 @@ defined in `com.phonebook.env.cli.entrypoint.EntrypointCli` class.
 
 `com.phonebook.env.webmvc` - Contains class definitions that are used in the WebMVC version of the app. The entrypoint
 is defined in `com.phonebook.env.webmvc.entrypoint.EntrypointWebmvc` class. 
+
+
+## Running the project
+
+### Compile
+```shell
+mvn clean package
+```
+
+### Run
+
+#### CLI
+
+```shell
+java -Dspring.profiles.active=cli -jar target/phonebook-1.0-SNAPSHOT.jar
+```
+
+#### WebMVC
+```shell
+java -Dspring.profiles.active=webmvc -jar target/phonebook-1.0-SNAPSHOT.jar
+```
+
