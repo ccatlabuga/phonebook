@@ -6,6 +6,8 @@ import com.phonebook.core.service.PhoneBook;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class CommandHandler {
     private final PhoneBook phoneBook;
@@ -18,7 +20,12 @@ public class CommandHandler {
 
     @Bean({"ADD"})
     public Command addPhone() {
-        return this.phoneBook::addNameAndPhone;
+        return (commandArgs) -> {
+            if (!this.phoneBook.findAll().containsKey(commandArgs.getFirst())) {
+                this.phoneBook.addName(commandArgs.getFirst());
+            }
+            this.phoneBook.addPhone(commandArgs);
+        };
     }
 
     @Bean({"REMOVE_PHONE"})

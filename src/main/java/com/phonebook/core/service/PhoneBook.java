@@ -83,13 +83,4 @@ public class PhoneBook {
 
         this.repository.addName(name);
     }
-
-    public void addPhones(String name, List<String> phones) {
-        this.repository.addPhones(name, phones);
-    }
-
-    public void addNameAndPhone(List<String> commandArgs) {
-        this.addName(commandArgs.getFirst());
-        this.addPhone(commandArgs);
-    }
 }

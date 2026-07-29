@@ -33,14 +33,14 @@ public class PhoneBookController {
 
     @PutMapping("/{name}")
     public ResponseEntity<Set<String>> addPhoneNumber(@PathVariable String name, @RequestBody List<String> phones) {
-        this.phoneBook.addPhones(name, phones);
+        this.phoneBook.addPhone(name, phones);
         return new ResponseEntity<>(this.phoneBook.findAllPhonesByName(name), HttpStatus.CREATED);
     }
 
     @PostMapping({"/", ""})
     public ResponseEntity<URI> addRecord(@RequestBody Map.Entry<String, List<String>> body) {
         this.phoneBook.addName(body.getKey());
-        this.phoneBook.addPhones(body.getKey(), body.getValue());
+        this.phoneBook.addPhone(body.getKey(), body.getValue());
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
