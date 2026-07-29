@@ -1,7 +1,7 @@
 package com.phonebook.env.webmvc.controller;
 
-import com.phonebook.core.datarepository.DataRepository;
 import com.phonebook.core.service.PhoneBook;
+import com.phonebook.env.webmvc.dto.NamePhoneEntry;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,14 +38,14 @@ public class PhoneBookController {
     }
 
     @PostMapping({"/", ""})
-    public ResponseEntity<URI> addRecord(@RequestBody Map.Entry<String, List<String>> body) {
-        this.phoneBook.addName(body.getKey());
-        this.phoneBook.addPhone(body.getKey(), body.getValue());
+    public ResponseEntity<URI> addRecord(@RequestBody NamePhoneEntry body) {
+        this.phoneBook.addName(body.name());
+        this.phoneBook.addPhone(body.name(), body.phoneNumber());
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{name}")
-                .buildAndExpand(body.getKey())
+                .buildAndExpand(body.name())
                 .toUri();
 
         return ResponseEntity.created(location).build();
