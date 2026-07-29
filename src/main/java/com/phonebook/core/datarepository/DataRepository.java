@@ -37,6 +37,8 @@ public interface DataRepository {
 
     void addPhones(String name, List<String> phones);
 
+    void addName(String name);
+
     /**
      * removes a phone from set. If set becomes empty after deletion remove record "{name:[phone]}" completely
      *

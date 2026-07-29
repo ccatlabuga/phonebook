@@ -1,13 +1,12 @@
 package com.phonebook.core.service;
 
 import com.phonebook.core.datarepository.DataRepository;
+import com.phonebook.core.exception.UserConflictException;
+import com.phonebook.core.exception.UserNotFoundException;
 import com.phonebook.core.formatter.Formatter;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * PhoneBook service implementation
@@ -46,7 +45,11 @@ public class PhoneBook {
     }
 
     public void removePhone(String phone) {
-        this.repository.removePhone(phone);
+        try {
+            this.repository.removePhone(phone);
+        } catch (IllegalArgumentException exception) {
+            throw new UserNotFoundException("User with phone '%s' has not been found".formatted(phone));
+        }
     }
 
     public void removePhone(List<String> commandArgs) {
@@ -62,10 +65,27 @@ public class PhoneBook {
     }
 
     public Set<String> findAllPhonesByName(String name) {
-        return this.repository.findAllPhonesByName(name);
+        Set<String> results = this.repository.findAllPhonesByName(name);
+        if (Objects.isNull(results)) {
+            throw new UserNotFoundException("User with name '%s' has not been found".formatted(name));
+        }
+
+        return results;
+    }
+
+    public void addName(String name) {
+        if (!Objects.isNull(this.repository.findAllPhonesByName(name))) {
+            throw new UserConflictException("User with name '%s' already exists".formatted(name));
+        }
+
+        this.repository.addName(name);
     }
 
     public void addPhones(String name, List<String> phones) {
+        if (Objects.isNull(this.repository.findAllPhonesByName(name))) {
+            throw new UserNotFoundException("User with name '%s' has not been found".formatted(name));
+        }
+
         this.repository.addPhones(name, phones);
     }
 }

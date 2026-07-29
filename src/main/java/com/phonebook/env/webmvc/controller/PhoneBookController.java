@@ -29,47 +29,32 @@ public class PhoneBookController {
 
     @GetMapping("/{name}")
     public ResponseEntity<Set<String>> getByName(@PathVariable String name) {
-        Set<String> results = this.phoneBook.findAllPhonesByName(name);
-
-        if (Objects.isNull(results)) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else {
-            return ResponseEntity.ok(results);
-        }
+        return ResponseEntity.ok(this.phoneBook.findAllPhonesByName(name));
     }
 
     @PutMapping("/{name}")
     public ResponseEntity<Set<String>> addPhoneNumber(@PathVariable String name, @RequestBody List<String> phones) {
-        if (Objects.isNull(this.phoneBook.findAllPhonesByName(name))) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else {
-            this.phoneBook.addPhones(name, phones);
-            return new ResponseEntity<>(this.phoneBook.findAllPhonesByName(name), HttpStatus.CREATED);
-        }
+        this.phoneBook.addPhones(name, phones);
+        return new ResponseEntity<>(this.phoneBook.findAllPhonesByName(name), HttpStatus.CREATED);
     }
 
     @PostMapping({"/", ""})
     public ResponseEntity<URI> addRecord(@RequestBody Map.Entry<String, List<String>> body) {
-        if (!Objects.isNull(this.phoneBook.findAllPhonesByName(body.getKey()))) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        } else {
-            this.phoneBook.addPhones(body.getKey(), body.getValue());
-            URI location = ServletUriComponentsBuilder
-                    .fromCurrentRequest()
-                    .path("/{name}")
-                    .buildAndExpand(body.getKey())
-                    .toUri();
-            return ResponseEntity.created(location).build();
-        }
+        this.phoneBook.addName(body.getKey());
+        this.phoneBook.addPhones(body.getKey(), body.getValue());
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{name}")
+                .buildAndExpand(body.getKey())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
     }
 
     @DeleteMapping("/{number}")
     public ResponseEntity<Void> deleteRecord(@PathVariable String number) {
-        try {
-            this.phoneBook.removePhone(number);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        this.phoneBook.removePhone(number);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

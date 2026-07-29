@@ -93,6 +93,11 @@ public class InMemoryRepository implements DataRepository {
     }
 
     @Override
+    public void addName(String name) {
+        this.data.computeIfAbsent(name, k -> new java.util.HashSet<>());
+    }
+
+    @Override
     public void removePhone(String phone) throws IllegalArgumentException {
         List<String> names = this.findNamesByPhone(phone);
 
