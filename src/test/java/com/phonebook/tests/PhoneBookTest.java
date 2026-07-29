@@ -69,4 +69,43 @@ public class PhoneBookTest {
 
         Assertions.assertThrows(UserNotFoundException.class, () -> this.phoneBook.addPhone(ARGS));
     }
+
+    @Test
+    public void removePhoneTest() {
+        String NAME = "Alex";
+        String PHONE = "phone_to_delete";
+
+        this.phoneBook.addPhone(NAME, PHONE);
+        Assertions.assertTrue(this.phoneBook.findAllPhonesByName(NAME).contains(PHONE));
+
+        this.phoneBook.removePhone(PHONE);
+        Assertions.assertFalse(this.phoneBook.findAllPhonesByName(NAME).contains(PHONE));
+    }
+
+    @Test
+    public void removeNonexistentPhoneThrowsTest() {
+        String PHONE = "phone_not_exists";
+
+        Assertions.assertThrows(UserNotFoundException.class, () -> this.phoneBook.removePhone(PHONE));
+    }
+
+    @Test
+    public void removePhoneAsArgsTest() {
+        List<String> ARGS = List.of("Alex", "test5");
+
+
+        this.phoneBook.addPhone(ARGS);
+        Assertions.assertTrue(this.phoneBook.findAllPhonesByName(ARGS.getFirst())
+                .contains(ARGS.getLast()));
+
+        this.phoneBook.removePhone(List.of(ARGS.getLast()));
+        Assertions.assertFalse(this.phoneBook.findAllPhonesByName(ARGS.getFirst())
+                .contains(ARGS.getLast()));
+    }
+
+    @Test
+    public void removeNonexistentPhoneAsArgsThrowsTest() {
+        List<String> ARGS = List.of("phone_not_exists");
+        Assertions.assertThrows(UserNotFoundException.class, () -> this.phoneBook.removePhone(ARGS));
+    }
 }
